@@ -1,0 +1,23 @@
+.space-click {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  button {
+    padding: 15px;
+    border-radius: 10px;
+  }
+
+  .dot-click {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background-color: red;
+  }
+}
