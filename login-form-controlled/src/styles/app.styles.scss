@@ -14,6 +14,12 @@
   align-items: center;
   gap: 2rem;
 
+  .error-message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: red;
+  }
+
   .row {
     display: flex;
     flex-direction: column;
