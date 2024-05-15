@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { Form } from "./Form";
 
 const userFormSchema = z.object({
   name: z
@@ -47,14 +49,15 @@ type UserFormSchema = z.infer<typeof userFormSchema>;
 export function App() {
   const [output, setOutput] = useState("");
 
+  const createUserForm = useForm<UserFormSchema>({
+    resolver: zodResolver(userFormSchema),
+  });
+
   const {
-    register,
     handleSubmit,
     formState: { errors },
     control,
-  } = useForm<UserFormSchema>({
-    resolver: zodResolver(userFormSchema),
-  });
+  } = createUserForm;
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -72,127 +75,108 @@ export function App() {
   return (
     <main className="flex h-screen flex-col justify-center items-center gap-10">
       <h1 className="font-bold text-xl">Validação de Formulário</h1>
-      <form
-        onSubmit={handleSubmit(createUser)}
-        className="flex max-w-xs w-full flex-col gap-4"
-      >
-        <div className="flex flex-col gap-1">
-          <label htmlFor="name">Nome:</label>
-          <input
-            type="text"
-            {...register("name")}
-            id="name"
-            className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
-          />
-
-          {errors.name && (
-            <span className="text-sm text-red-500">{errors.name.message}</span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email">E-mail:</label>
-          <input
-            type="email"
-            {...register("email")}
-            id="email"
-            className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
-          />
-
-          {errors.email && (
-            <span className="text-sm text-red-500">{errors.email.message}</span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <label htmlFor="password">Senha:</label>
-          <input
-            type="password"
-            {...register("password")}
-            id="password"
-            className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
-          />
-
-          {errors.password && (
-            <span className="text-sm text-red-500">
-              {errors.password.message}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1">
-          <div>
-            <label htmlFor="techs" className="flex justify-between">
-              Tecnologias
-              <button
-                type="button"
-                onClick={addNewTech}
-                className="text-emerald-500"
-              >
-                Adicionar
-              </button>
-            </label>
-
-            {errors.techs && (
-              <span className="text-sm text-red-500">
-                {errors.techs.message}
-              </span>
-            )}
-          </div>
-
-          {fields.map((field, index) => (
-            <div key={field.id} className="flex flex-col gap-2">
-              <div className="flex justify-between gap-2">
-                <div className="flex flex-1 flex-col gap-1">
-                  <label htmlFor="title">Título:</label>
-                  <input
-                    type="text"
-                    {...register(`techs.${index}.title`)}
-                    id="title"
-                    className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
-                  />
-
-                  {errors.techs?.[index] && (
-                    <span className="text-sm text-red-500">
-                      {errors.techs?.[index]?.title?.message}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="knowledge">Quantidade:</label>
-                  <input
-                    type="number"
-                    {...register(`techs.${index}.knowledge`)}
-                    id="knowledge"
-                    className="h-10 w-20 px-3 bg-zinc-100 text-black rounded outline-none"
-                  />
-
-                  {errors.techs?.[index] && (
-                    <span className="text-sm text-red-500">
-                      {errors.techs?.[index]?.knowledge?.message}
-                    </span>
-                  )}
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => remove}
-                className="text-orange-500"
-              >
-                Remover
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <button
-          type="submit"
-          className="h-10 bg-emerald-600 font-bold rounded outline-none hover:bg-emerald-500"
+      <FormProvider {...createUserForm}>
+        <form
+          onSubmit={handleSubmit(createUser)}
+          className="flex max-w-xs w-full flex-col gap-4"
         >
-          Salvar
-        </button>
-      </form>
+          <Form.Field>
+            <Form.Label htmlFor="name">Nome:</Form.Label>
+            <Form.Input type="text" name="name" id="name" />
+
+            <Form.ErrorMessage field="name" />
+          </Form.Field>
+
+          <Form.Field>
+            <Form.Label htmlFor="email">E-mail:</Form.Label>
+            <Form.Input type="email" name="email" id="email" />
+
+            <Form.ErrorMessage field="email" />
+          </Form.Field>
+
+          <Form.Field>
+            <Form.Label htmlFor="password">Senha:</Form.Label>
+            <Form.Input type="password" name="password" id="password" />
+
+            <Form.ErrorMessage field="password" />
+          </Form.Field>
+
+          <Form.Field>
+            <div>
+              <Form.Label htmlFor="techs" className="flex justify-between">
+                Tecnologias
+                <button
+                  type="button"
+                  onClick={addNewTech}
+                  className="text-emerald-500"
+                >
+                  Adicionar
+                </button>
+              </Form.Label>
+
+              {errors.techs && (
+                <span className="text-xs text-red-500">
+                  {errors.techs.message}
+                </span>
+              )}
+            </div>
+
+            {fields.map((field, index) => (
+              <div
+                key={field.id}
+                className="flex flex-col gap-2 border-b-2 py-4"
+              >
+                <div className="flex justify-between gap-2">
+                  <div className="flex flex-1 flex-col gap-1">
+                    <Form.Label htmlFor="title">Título:</Form.Label>
+                    <Form.Input
+                      type="text"
+                      name={`techs.${index}.title`}
+                      id="title"
+                    />
+
+                    {errors.techs?.[index] && (
+                      <span className="text-xs text-red-500">
+                        {errors.techs?.[index]?.title?.message}
+                      </span>
+                    )}
+                  </div>
+
+                  <Form.Field>
+                    <Form.Label htmlFor="knowledge">Quantidade:</Form.Label>
+                    <Form.Input
+                      type="number"
+                      name={`techs.${index}.knowledge`}
+                      id="knowledge"
+                      className="w-24"
+                    />
+
+                    {errors.techs?.[index] && (
+                      <span className="text-xs text-red-500">
+                        {errors.techs?.[index]?.knowledge?.message}
+                      </span>
+                    )}
+                  </Form.Field>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => remove}
+                  className="text-orange-500"
+                >
+                  Remover
+                </button>
+              </div>
+            ))}
+          </Form.Field>
+
+          <button
+            type="submit"
+            className="h-10 bg-emerald-600 font-bold rounded outline-none hover:bg-emerald-500"
+          >
+            Salvar
+          </button>
+        </form>
+      </FormProvider>
 
       <pre>{output}</pre>
     </main>
