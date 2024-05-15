@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 const userFormSchema = z.object({
@@ -24,6 +24,22 @@ const userFormSchema = z.object({
     .email("E-mail inválido.")
     .toLowerCase(),
   password: z.string().min(6, "A senha precisa ter pelo menos 6 caracteres."),
+  techs: z
+    .array(
+      z.object({
+        title: z
+          .string()
+          .min(1, "O título é obrigatório.")
+          .transform((title) =>
+            title[0].toLocaleUpperCase().concat(title.substring(1))
+          ),
+        knowledge: z.coerce
+          .number()
+          .min(20, "O número mínimo tem que ser 20.")
+          .max(100, "O número máximo é 100."),
+      })
+    )
+    .min(2, "Insira pelo menos 2 tecnologias."),
 });
 
 type UserFormSchema = z.infer<typeof userFormSchema>;
@@ -35,9 +51,19 @@ export function App() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<UserFormSchema>({
     resolver: zodResolver(userFormSchema),
   });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "techs",
+  });
+
+  function addNewTech() {
+    append({ title: "", knowledge: 0 });
+  }
 
   function createUser(data: UserFormSchema) {
     setOutput(JSON.stringify(data, null, 2));
@@ -92,6 +118,72 @@ export function App() {
               {errors.password.message}
             </span>
           )}
+        </div>
+
+        <div className="flex flex-col gap-1">
+          <div>
+            <label htmlFor="techs" className="flex justify-between">
+              Tecnologias
+              <button
+                type="button"
+                onClick={addNewTech}
+                className="text-emerald-500"
+              >
+                Adicionar
+              </button>
+            </label>
+
+            {errors.techs && (
+              <span className="text-sm text-red-500">
+                {errors.techs.message}
+              </span>
+            )}
+          </div>
+
+          {fields.map((field, index) => (
+            <div key={field.id} className="flex flex-col gap-2">
+              <div className="flex justify-between gap-2">
+                <div className="flex flex-1 flex-col gap-1">
+                  <label htmlFor="title">Título:</label>
+                  <input
+                    type="text"
+                    {...register(`techs.${index}.title`)}
+                    id="title"
+                    className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
+                  />
+
+                  {errors.techs?.[index] && (
+                    <span className="text-sm text-red-500">
+                      {errors.techs?.[index]?.title?.message}
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="knowledge">Quantidade:</label>
+                  <input
+                    type="number"
+                    {...register(`techs.${index}.knowledge`)}
+                    id="knowledge"
+                    className="h-10 w-20 px-3 bg-zinc-100 text-black rounded outline-none"
+                  />
+
+                  {errors.techs?.[index] && (
+                    <span className="text-sm text-red-500">
+                      {errors.techs?.[index]?.knowledge?.message}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => remove}
+                className="text-orange-500"
+              >
+                Remover
+              </button>
+            </div>
+          ))}
         </div>
 
         <button
