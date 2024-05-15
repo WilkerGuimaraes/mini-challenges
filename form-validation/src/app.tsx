@@ -160,7 +160,7 @@ export function App() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => remove}
+                  onClick={() => remove(index)}
                   className="text-orange-500"
                 >
                   Remover
