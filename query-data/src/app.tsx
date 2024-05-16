@@ -43,7 +43,7 @@ export function App() {
     setUserId(user);
   }
 
-  async function handleClearInput() {
+  async function handleCleanFilter() {
     setUser(0);
     setUserId(0);
   }
@@ -122,7 +122,7 @@ export function App() {
 
           <button
             type="button"
-            onClick={handleClearInput}
+            onClick={handleCleanFilter}
             disabled={isLoading}
             className="h-10 px-6 bg-slate-500 font-bold rounded outline-none hover:bg-neutral-400"
           >
