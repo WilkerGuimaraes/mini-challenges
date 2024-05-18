@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import { CreateUserForm } from "./components/create-user-form";
 
 interface UsersProps {
   id: string;
@@ -24,6 +25,8 @@ export function App() {
 
   return (
     <main className="flex flex-col items-center gap-6 max-w-6xl h-screen mx-auto">
+      <CreateUserForm />
+
       {isLoading && (
         <span className="inline-flex gap-2 font-bold text-2xl">
           <Loader2 className="size-8 animate-spin" />
