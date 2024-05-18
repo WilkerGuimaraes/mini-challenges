@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
+import { Pagination } from "./components/pagination";
 
 interface PostsProps {
   userId: number;
@@ -25,6 +26,8 @@ export function App() {
 
   return (
     <div className="max-w-5xl my-6 mx-auto space-y-6">
+      {postsResponse && <Pagination />}
+
       {isLoading && (
         <span className="inline-flex gap-2 font-bold text-2xl">
           <Loader2 className="size-8 animate-spin" />
