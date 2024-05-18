@@ -1,4 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -27,16 +29,35 @@ const userFormSchema = z.object({
 type UserFormSchema = z.infer<typeof userFormSchema>;
 
 export function CreateUserForm() {
+  const queryClient = useQueryClient();
+
   const { register, handleSubmit, formState } = useForm<UserFormSchema>({
     resolver: zodResolver(userFormSchema),
   });
 
-  function createUser({ name, email }: UserFormSchema) {
-    console.log({ name, email });
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ name, email }: UserFormSchema) => {
+      // delay 1.5s
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      await fetch("http://localhost:3333/users", {
+        method: "POST",
+        body: JSON.stringify({ name, email }),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["get-users"],
+      });
+    },
+  });
+
+  async function createUser({ name, email }: UserFormSchema) {
+    await mutateAsync({ name, email });
   }
 
   return (
-    <div className="my-6">
+    <div className="flex flex-col gap-6 items-center my-6">
       <form
         onSubmit={handleSubmit(createUser)}
         className="flex items-start gap-4"
@@ -86,6 +107,13 @@ export function CreateUserForm() {
           </button>
         </div>
       </form>
+
+      {formState.isSubmitting && (
+        <span className="inline-flex gap-2 font-bold text-2xl">
+          <Loader2 className="size-8 animate-spin" />
+          Carregando...
+        </span>
+      )}
     </div>
   );
 }
