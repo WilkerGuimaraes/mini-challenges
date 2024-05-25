@@ -8,6 +8,7 @@ interface FilterProps {
   hobby: string;
   city: string;
   postalCode: string;
+  age: string;
 }
 
 export function App() {
@@ -27,6 +28,7 @@ export function App() {
     hobby: "",
     city: "",
     postalCode: "",
+    age: "",
   });
 
   const [tempFilter, setTempFilter] = useState<FilterProps>({
@@ -34,6 +36,7 @@ export function App() {
     hobby: "",
     city: "",
     postalCode: "",
+    age: "",
   });
 
   function handleTempFilterChange(event: ChangeEvent<HTMLInputElement>) {
@@ -45,6 +48,7 @@ export function App() {
         hobby: "",
         city: "",
         postalCode: "",
+        age: "",
       });
     } else if (name === "hobby") {
       setTempFilter({
@@ -52,6 +56,7 @@ export function App() {
         hobby: value,
         city: "",
         postalCode: "",
+        age: "",
       });
     } else if (name === "city") {
       setTempFilter({
@@ -59,6 +64,7 @@ export function App() {
         hobby: "",
         city: value,
         postalCode: "",
+        age: "",
       });
     } else if (name === "postalCode") {
       setTempFilter({
@@ -66,6 +72,15 @@ export function App() {
         hobby: "",
         city: "",
         postalCode: value,
+        age: "",
+      });
+    } else if (name === "age") {
+      setTempFilter({
+        isActive: null,
+        hobby: "",
+        city: "",
+        postalCode: "",
+        age: value,
       });
     }
   }
@@ -81,6 +96,7 @@ export function App() {
       hobby: "",
       city: "",
       postalCode: "",
+      age: "",
     });
 
     setTempFilter({
@@ -88,6 +104,7 @@ export function App() {
       hobby: "",
       city: "",
       postalCode: "",
+      age: "",
     });
   }
 
@@ -98,15 +115,24 @@ export function App() {
     const matchesCity = !filter.city || user.address.city === filter.city;
     const matchesPostalCode =
       !filter.postalCode || user.address.postalCode === filter.postalCode;
+    const matchesAge =
+      !filter.age || (filter.age === "over30" && user.age > 30);
 
-    return matchesIsActive && matchesHobby && matchesCity && matchesPostalCode;
+    return (
+      matchesIsActive &&
+      matchesHobby &&
+      matchesCity &&
+      matchesPostalCode &&
+      matchesAge
+    );
   });
 
   const isFilteredUsers =
     filter.isActive !== null ||
     filter.hobby !== "" ||
     filter.city !== "" ||
-    filter.postalCode !== "";
+    filter.postalCode !== "" ||
+    filter.age !== "";
 
   return (
     <main className="flex w-full h-screen mx-auto bg-zinc-800">
@@ -172,6 +198,18 @@ export function App() {
             <label htmlFor="postalCode">77890</label>
           </div>
 
+          <div className="inline-flex gap-1">
+            <input
+              type="radio"
+              name="age"
+              id="age"
+              value={"over30"}
+              checked={tempFilter.age === "over30"}
+              onChange={handleTempFilterChange}
+            />
+            <label htmlFor="age">Idade acima de 30</label>
+          </div>
+
           <button
             type="submit"
             className="h-10 w-20 font-bold rounded bg-emerald-600"
@@ -194,6 +232,7 @@ export function App() {
             <tr>
               <th>Id</th>
               <th>Nome</th>
+              <th>Idade</th>
               <th>Ativado</th>
               <th>Hobbies</th>
               <th>Cidade</th>
@@ -207,6 +246,7 @@ export function App() {
                 <tr>
                   <td>{user.id}</td>
                   <td>{user.name}</td>
+                  <td>{user.age}</td>
                   <td
                     className={
                       user.isActive ? "text-emerald-500" : "text-red-500"
