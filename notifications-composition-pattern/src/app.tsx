@@ -20,15 +20,15 @@ export function App() {
           </div>
 
           <div className="divide-y-2 divide-zinc-950">
-            <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
+            <Notification.Root>
               <Notification.Icon icon={Mail} />
               <Notification.Content
                 text="O curso 'Introdução à Programação' já está disponível. Inscreva-se agora
         e comece a aprender!"
               />
-            </div>
+            </Notification.Root>
 
-            <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
+            <Notification.Root>
               <Notification.Icon icon={Mail} />
               <Notification.Content
                 text="Uma nova atualização do aplicativo está disponível. Atualize
@@ -43,9 +43,9 @@ export function App() {
                   <Check className="size-3 text-zinc-50" />
                 </button>
               </div>
-            </div>
+            </Notification.Root>
 
-            <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
+            <Notification.Root>
               <Notification.Icon icon={Mail} />
               <Notification.Content
                 text="Você recebeu uma nova tarefa: 'Revisar documento de projeto'.
@@ -60,7 +60,7 @@ export function App() {
                   <Check className="size-3 text-zinc-50" />
                 </button>
               </div>
-            </div>
+            </Notification.Root>
           </div>
         </div>
 
@@ -72,15 +72,15 @@ export function App() {
           </div>
 
           <div className="divide-y-2 divide-zinc-950">
-            <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
+            <Notification.Root>
               <Notification.Icon icon={Mail} />
               <Notification.Content
                 text="Lembrete: o evento 'Workshop de Fotografia' acontece amanhã às
                   14h. Não perca!"
               />
-            </div>
+            </Notification.Root>
 
-            <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
+            <Notification.Root>
               <Notification.Icon icon={Mail} />
               <Notification.Content
                 text="Seu pedido #12345 foi confirmado com sucesso! Acompanhe a
@@ -95,7 +95,7 @@ export function App() {
                   <Check className="size-3 text-zinc-50" />
                 </button>
               </div>
-            </div>
+            </Notification.Root>
           </div>
         </div>
       </div>
