@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { Check, Mail, X } from "lucide-react";
 import { Notification } from "./components/Notification";
 
 export function App() {
@@ -35,7 +35,16 @@ export function App() {
                   agora para acessar novos recursos e melhorias!"
               />
 
-              <Notification.Actions />
+              <Notification.Actions>
+                <Notification.Action
+                  icon={X}
+                  className="bg-red-800 hover:bg-red-900"
+                />
+                <Notification.Action
+                  icon={Check}
+                  className="bg-green-600 hover:bg-green-700"
+                />
+              </Notification.Actions>
             </Notification.Root>
 
             <Notification.Root>
@@ -45,7 +54,16 @@ export function App() {
                   Prazo: 30/05 às 17h."
               />
 
-              <Notification.Actions />
+              <Notification.Actions>
+                <Notification.Action
+                  icon={X}
+                  className="bg-red-800 hover:bg-red-900"
+                />
+                <Notification.Action
+                  icon={Check}
+                  className="bg-green-600 hover:bg-green-700"
+                />
+              </Notification.Actions>
             </Notification.Root>
           </div>
         </div>
@@ -64,6 +82,12 @@ export function App() {
                 text="Lembrete: o evento 'Workshop de Fotografia' acontece amanhã às
                   14h. Não perca!"
               />
+              <Notification.Actions>
+                <Notification.Action
+                  icon={X}
+                  className="bg-red-800 hover:bg-red-900"
+                />
+              </Notification.Actions>
             </Notification.Root>
 
             <Notification.Root>
@@ -73,7 +97,12 @@ export function App() {
                   entrega pelo nosso aplicativo."
               />
 
-              <Notification.Actions />
+              <Notification.Actions>
+                <Notification.Action
+                  icon={X}
+                  className="bg-red-800 hover:bg-red-900"
+                />
+              </Notification.Actions>
             </Notification.Root>
           </div>
         </div>
