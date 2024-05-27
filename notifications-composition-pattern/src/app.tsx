@@ -25,6 +25,7 @@ export function App() {
               <Notification.Content
                 text="O curso 'Introdução à Programação' já está disponível. Inscreva-se agora
         e comece a aprender!"
+                period="Há 3 min"
               />
             </Notification.Root>
 
@@ -33,6 +34,7 @@ export function App() {
               <Notification.Content
                 text="Uma nova atualização do aplicativo está disponível. Atualize
                   agora para acessar novos recursos e melhorias!"
+                period="Há 2 horas"
               />
 
               <Notification.Actions>
@@ -52,6 +54,7 @@ export function App() {
               <Notification.Content
                 text="Você recebeu uma nova tarefa: 'Revisar documento de projeto'.
                   Prazo: 30/05 às 17h."
+                period="Há 7 horas"
               />
 
               <Notification.Actions>
@@ -81,6 +84,7 @@ export function App() {
               <Notification.Content
                 text="Lembrete: o evento 'Workshop de Fotografia' acontece amanhã às
                   14h. Não perca!"
+                period="Há 2 dias"
               />
               <Notification.Actions>
                 <Notification.Action
@@ -95,6 +99,7 @@ export function App() {
               <Notification.Content
                 text="Seu pedido #12345 foi confirmado com sucesso! Acompanhe a
                   entrega pelo nosso aplicativo."
+                period="Há 3 dias"
               />
 
               <Notification.Actions>
