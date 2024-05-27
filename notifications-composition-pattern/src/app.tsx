@@ -1,4 +1,5 @@
 import { X, Check, Mail } from "lucide-react";
+import { Notification } from "./components/Notification";
 
 export function App() {
   return (
@@ -21,30 +22,18 @@ export function App() {
           <div className="divide-y-2 divide-zinc-950">
             <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
               <Mail className="size-6 text-yellow-500 mt-3" />
-              <div className="flex-1 flex flex-col gap-2">
-                <p className="text-sm leading-relaxed text-zinc-100">
-                  O curso 'Introdução à Programação' já está disponível.
-                  Inscreva-se agora e comece a aprender!
-                </p>
-                <div className="text-xxs text-zinc-400 flex items-center gap-1">
-                  <span>Convite</span>
-                  <span>Há 3 min</span>
-                </div>
-              </div>
+              <Notification.Content
+                text="O curso 'Introdução à Programação' já está disponível. Inscreva-se agora
+        e comece a aprender!"
+              />
             </div>
 
             <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
               <Mail className="size-6 text-yellow-500 mt-3" />
-              <div className="flex-1 flex flex-col gap-2">
-                <p className="text-sm leading-relaxed text-zinc-100">
-                  Uma nova atualização do aplicativo está disponível. Atualize
-                  agora para acessar novos recursos e melhorias!
-                </p>
-                <div className="text-xxs text-zinc-400 flex items-center gap-1">
-                  <span>Convite</span>
-                  <span>Há 2 horas</span>
-                </div>
-              </div>
+              <Notification.Content
+                text="Uma nova atualização do aplicativo está disponível. Atualize
+                  agora para acessar novos recursos e melhorias!"
+              />
 
               <div className="flex gap-2 self-center">
                 <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
@@ -58,16 +47,10 @@ export function App() {
 
             <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
               <Mail className="size-6 text-yellow-500 mt-3" />
-              <div className="flex-1 flex flex-col gap-2">
-                <p className="text-sm leading-relaxed text-zinc-100">
-                  Você recebeu uma nova tarefa: 'Revisar documento de projeto'.
-                  Prazo: 30/05 às 17h.
-                </p>
-                <div className="text-xxs text-zinc-400 flex items-center gap-1">
-                  <span>Convite</span>
-                  <span>Há 7 horas</span>
-                </div>
-              </div>
+              <Notification.Content
+                text="Você recebeu uma nova tarefa: 'Revisar documento de projeto'.
+                  Prazo: 30/05 às 17h."
+              />
 
               <div className="flex gap-2 self-center">
                 <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
@@ -91,30 +74,18 @@ export function App() {
           <div className="divide-y-2 divide-zinc-950">
             <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
               <Mail className="size-6 text-yellow-500 mt-3" />
-              <div className="flex-1 flex flex-col gap-2">
-                <p className="text-sm leading-relaxed text-zinc-100">
-                  Lembrete: o evento 'Workshop de Fotografia' acontece amanhã às
-                  14h. Não perca!
-                </p>
-                <div className="text-xxs text-zinc-400 flex items-center gap-1">
-                  <span>Convite</span>
-                  <span>Há 1 dia</span>
-                </div>
-              </div>
+              <Notification.Content
+                text="Lembrete: o evento 'Workshop de Fotografia' acontece amanhã às
+                  14h. Não perca!"
+              />
             </div>
 
             <div className="bg-zinc-900 px-8 py-4 flex items-start gap-6">
               <Mail className="size-6 text-yellow-500 mt-3" />
-              <div className="flex-1 flex flex-col gap-2">
-                <p className="text-sm leading-relaxed text-zinc-100">
-                  Seu pedido #12345 foi confirmado com sucesso! Acompanhe a
-                  entrega pelo nosso aplicativo.
-                </p>
-                <div className="text-xxs text-zinc-400 flex items-center gap-1">
-                  <span>Convite</span>
-                  <span>Há 2 dias</span>
-                </div>
-              </div>
+              <Notification.Content
+                text="Seu pedido #12345 foi confirmado com sucesso! Acompanhe a
+                  entrega pelo nosso aplicativo."
+              />
 
               <div className="flex gap-2 self-center">
                 <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
