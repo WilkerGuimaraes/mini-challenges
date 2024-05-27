@@ -1,4 +1,4 @@
-import { X, Check, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 import { Notification } from "./components/Notification";
 
 export function App() {
@@ -35,14 +35,7 @@ export function App() {
                   agora para acessar novos recursos e melhorias!"
               />
 
-              <div className="flex gap-2 self-center">
-                <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
-                  <X className="size-3 text-zinc-50" />
-                </button>
-                <button className="size-8 rounded flex items-center justify-center bg-green-600 hover:bg-green-700">
-                  <Check className="size-3 text-zinc-50" />
-                </button>
-              </div>
+              <Notification.Actions />
             </Notification.Root>
 
             <Notification.Root>
@@ -52,14 +45,7 @@ export function App() {
                   Prazo: 30/05 às 17h."
               />
 
-              <div className="flex gap-2 self-center">
-                <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
-                  <X className="size-3 text-zinc-50" />
-                </button>
-                <button className="size-8 rounded flex items-center justify-center bg-green-600 hover:bg-green-700">
-                  <Check className="size-3 text-zinc-50" />
-                </button>
-              </div>
+              <Notification.Actions />
             </Notification.Root>
           </div>
         </div>
@@ -87,14 +73,7 @@ export function App() {
                   entrega pelo nosso aplicativo."
               />
 
-              <div className="flex gap-2 self-center">
-                <button className="size-8 rounded flex items-center justify-center bg-red-800 hover:bg-red-900">
-                  <X className="size-3 text-zinc-50" />
-                </button>
-                <button className="size-8 rounded flex items-center justify-center bg-green-600 hover:bg-green-700">
-                  <Check className="size-3 text-zinc-50" />
-                </button>
-              </div>
+              <Notification.Actions />
             </Notification.Root>
           </div>
         </div>
