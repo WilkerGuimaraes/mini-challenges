@@ -1,9 +1,20 @@
 import { Check, Mail, X } from "lucide-react";
 import { Notification } from "./components/Notification";
+import { useState } from "react";
 
 export function App() {
+  const [output, setOutput] = useState("");
+
+  function handleCheckedNotification() {
+    setOutput("Checked!");
+  }
+
+  function handleClearNotification() {
+    setOutput("");
+  }
+
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col gap-8 items-center justify-center h-screen">
       <div className="w-[448px] rounded overflow-hidden">
         {/* Header */}
         <div className="bg-zinc-800 py-4 px-6 flex items-center justify-between">
@@ -41,10 +52,12 @@ export function App() {
                 <Notification.Action
                   icon={X}
                   className="bg-red-800 hover:bg-red-900"
+                  onClick={handleClearNotification}
                 />
                 <Notification.Action
                   icon={Check}
                   className="bg-green-600 hover:bg-green-700"
+                  onClick={handleCheckedNotification}
                 />
               </Notification.Actions>
             </Notification.Root>
@@ -61,10 +74,12 @@ export function App() {
                 <Notification.Action
                   icon={X}
                   className="bg-red-800 hover:bg-red-900"
+                  onClick={handleClearNotification}
                 />
                 <Notification.Action
                   icon={Check}
                   className="bg-green-600 hover:bg-green-700"
+                  onClick={handleCheckedNotification}
                 />
               </Notification.Actions>
             </Notification.Root>
@@ -112,6 +127,8 @@ export function App() {
           </div>
         </div>
       </div>
+
+      <pre className="font-bold text-xl">{output}</pre>
     </div>
   );
 }
