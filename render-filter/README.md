@@ -1,3 +1,5 @@
+# Filtro de renderização
+
 - Crie um sistema de filtragem ao qual será aplicado para renderizar dados da API `server.json`.
 
 ## Instruções
@@ -16,3 +18,7 @@
 - Usuários que possuem a propriedade `hobbies` com o valor "Cooking".
 - Usuários que possuem a código postal como "77890".
 - Usuários que possuem idade acima de 30.
+
+## Adicional
+
+- Aplique os conceitos de `custom hooks` para tornar o código mais legível e organizado.
