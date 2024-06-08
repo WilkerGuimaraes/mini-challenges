@@ -1,4 +1,5 @@
-import { useFetch } from "../../hooks/useFetch";
+import { useFilter } from "../../hooks/useFilter";
+
 import {
   AsideContainer,
   Button,
@@ -20,40 +21,78 @@ import {
 import { HomeContainer } from "./styles";
 
 export function Home() {
-  const { usersResponse } = useFetch();
+  const {
+    tempFilter,
+    filteredUsers,
+    isFilteredusers,
+    handleFilterChange,
+    handleTempFilterChange,
+    handleCleanFilter,
+  } = useFilter();
 
   return (
     <HomeContainer>
       <AsideContainer>
-        <form>
+        <form onSubmit={handleFilterChange}>
           <FormContainer>
             <InputRadioContainer>
               <InputWrapper>
-                <input type="radio" name="" id="" />
-                <label htmlFor="">Cooking</label>
+                <input
+                  type="radio"
+                  name="hobby"
+                  id="hobby"
+                  value={"Cooking"}
+                  checked={tempFilter.hobby === "Cooking"}
+                  onChange={handleTempFilterChange}
+                />
+                <label htmlFor="hobby">Cooking</label>
               </InputWrapper>
 
               <InputWrapper>
-                <input type="radio" name="" id="" />
-                <label htmlFor="">Mapleton</label>
+                <input
+                  type="radio"
+                  name="city"
+                  id="city"
+                  value={"Mapleton"}
+                  checked={tempFilter.city === "Mapleton"}
+                  onChange={handleTempFilterChange}
+                />
+                <label htmlFor="city">Mapleton</label>
               </InputWrapper>
 
               <InputWrapper>
-                <input type="radio" name="" id="" />
-                <label htmlFor="">77890</label>
+                <input
+                  type="radio"
+                  name="postalCode"
+                  id="postalCode"
+                  value={"77890"}
+                  checked={tempFilter.postalCode === "77890"}
+                  onChange={handleTempFilterChange}
+                />
+                <label htmlFor="postalCode">77890</label>
               </InputWrapper>
             </InputRadioContainer>
 
             <InputWrapper>
-              <input type="checkbox" name="" id="" />
-              <label htmlFor="">Active</label>
+              <input
+                type="checkbox"
+                name="isActive"
+                id="isActive"
+                checked={tempFilter.isActive}
+                onChange={handleTempFilterChange}
+              />
+              <label htmlFor="isActive">Active</label>
             </InputWrapper>
 
             <ButtonWrapper>
               <Button $variant="filter" type="submit">
                 Filter
               </Button>
-              <Button $variant="clear" type="button">
+              <Button
+                $variant="clear"
+                type="button"
+                onClick={handleCleanFilter}
+              >
                 Clean
               </Button>
             </ButtonWrapper>
@@ -76,20 +115,21 @@ export function Home() {
             </TableRow>
           </TableHeader>
 
-          {usersResponse?.map((user) => (
-            <TableBody>
-              <TableRow>
-                <TableCell>{user.id}</TableCell>
-                <TableCell>{user.name}</TableCell>
-                <IsActiveTableCell $isActive={user.isActive}>
-                  {String(user.isActive)}
-                </IsActiveTableCell>
-                <TableCell>{user.hobbies}</TableCell>
-                <TableCell>{user.address.city}</TableCell>
-                <TableCell>{user.address.postalCode}</TableCell>
-              </TableRow>
-            </TableBody>
-          ))}
+          {isFilteredusers &&
+            filteredUsers?.map((user) => (
+              <TableBody>
+                <TableRow>
+                  <TableCell>{user.id}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <IsActiveTableCell $isActive={user.isActive}>
+                    {String(user.isActive)}
+                  </IsActiveTableCell>
+                  <TableCell>{user.hobbies}</TableCell>
+                  <TableCell>{user.address.city}</TableCell>
+                  <TableCell>{user.address.postalCode}</TableCell>
+                </TableRow>
+              </TableBody>
+            ))}
         </Table>
       </TableContainer>
     </HomeContainer>
