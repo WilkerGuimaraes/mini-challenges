@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+
 import { App } from "./app";
 
 describe("App Component test", () => {
@@ -30,5 +31,13 @@ describe("App Component test", () => {
       const fields = screen.getAllByLabelText(/Título:/i);
       expect(fields).toHaveLength(1);
     });
+  });
+
+  it("should validate form on submit", async () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByText(/Salvar/i));
+    expect(await screen.findAllByText(/obrigatório/i)).toHaveLength(2);
+    expect(await screen.findAllByText(/menos/i)).toHaveLength(2);
   });
 });
