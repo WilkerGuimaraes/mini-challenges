@@ -128,11 +128,13 @@ export function App() {
               >
                 <div className="flex justify-between gap-2">
                   <div className="flex flex-1 flex-col gap-1">
-                    <Form.Label htmlFor="title">Título:</Form.Label>
+                    <Form.Label htmlFor={`techs.${index}.title`}>
+                      Título:
+                    </Form.Label>
                     <Form.Input
                       type="text"
                       name={`techs.${index}.title`}
-                      id="title"
+                      id={`techs.${index}.title`}
                     />
 
                     {errors.techs?.[index] && (
@@ -143,11 +145,13 @@ export function App() {
                   </div>
 
                   <Form.Field>
-                    <Form.Label htmlFor="knowledge">Quantidade:</Form.Label>
+                    <Form.Label htmlFor={`techs.${index}.knowledge`}>
+                      Quantidade:
+                    </Form.Label>
                     <Form.Input
                       type="number"
                       name={`techs.${index}.knowledge`}
-                      id="knowledge"
+                      id={`techs.${index}.knowledge`}
                       className="w-24"
                     />
 
