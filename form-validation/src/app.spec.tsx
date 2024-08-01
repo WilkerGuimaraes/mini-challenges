@@ -40,4 +40,40 @@ describe("App Component test", () => {
     expect(await screen.findAllByText(/obrigatório/i)).toHaveLength(2);
     expect(await screen.findAllByText(/menos/i)).toHaveLength(2);
   });
+
+  it("should submits form with valid data", async () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByLabelText(/Nome:/i), {
+      target: { value: "John Doe" },
+    });
+    fireEvent.change(screen.getByLabelText(/E-mail:/i), {
+      target: { value: "johndow@acme.com" },
+    });
+    fireEvent.change(screen.getByLabelText(/Senha:/i), {
+      target: { value: "123456" },
+    });
+
+    fireEvent.click(screen.getByText(/Adicionar/i));
+    fireEvent.change(screen.getAllByLabelText(/Título:/i)[0], {
+      target: { value: "React" },
+    });
+    fireEvent.change(screen.getAllByLabelText(/Quantidade:/i)[0], {
+      target: { value: "30" },
+    });
+
+    fireEvent.click(screen.getByText(/Adicionar/i));
+    fireEvent.change(screen.getAllByLabelText(/Título:/i)[1], {
+      target: { value: "TypeScript" },
+    });
+    fireEvent.change(screen.getAllByLabelText(/Quantidade:/i)[1], {
+      target: { value: "50" },
+    });
+
+    fireEvent.click(screen.getByText(/Salvar/i));
+    expect(await screen.findByText(/John Doe/i)).toBeInTheDocument();
+    expect(await screen.findByText(/johndow@acme.com/i)).toBeInTheDocument();
+    expect(await screen.findByText(/React/i)).toBeInTheDocument();
+    expect(await screen.findByText(/TypeScript/i)).toBeInTheDocument();
+  });
 });
