@@ -20,4 +20,20 @@ describe("App component test", () => {
       await screen.findByText(/id labore ex et quam laborum/i),
     ).toBeInTheDocument();
   });
+
+  it("should clearing posts after rendering", async () => {
+    render(<App />);
+
+    const showPostsButton = screen.getByText("Show posts");
+    fireEvent.click(showPostsButton);
+    expect(
+      await screen.findByText(/id labore ex et quam laborum/i),
+    ).toBeInTheDocument();
+
+    const clearPostsButton = screen.getByText("Clean posts");
+    fireEvent.click(clearPostsButton);
+    expect(
+      screen.queryByText(/id labore ex et quam laborum/i),
+    ).not.toBeInTheDocument();
+  });
 });
