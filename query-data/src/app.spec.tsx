@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { describe, it, expect } from "vitest";
 
@@ -11,7 +11,7 @@ describe("Task Component test", () => {
     render(
       <QueryClientProvider client={queryCLient}>
         <App />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(screen.getByLabelText(/Usuário 1/i)).toBeInTheDocument();
@@ -28,27 +28,55 @@ describe("Task Component test", () => {
     render(
       <QueryClientProvider client={queryCLient}>
         <App />
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
+    expect(await screen.findByText(/100/i)).toBeInTheDocument();
     expect(
       await screen.findByText(
-        /sunt aut facere repellat provident occaecati excepturi optio reprehenderit/i
-      )
+        /sunt aut facere repellat provident occaecati excepturi optio reprehenderit/i,
+      ),
     ).toBeInTheDocument();
     expect(
-      await screen.findByText(/et ea vero quia laudantium autem/i)
+      await screen.findByText(/et ea vero quia laudantium autem/i),
     ).toBeInTheDocument();
     expect(
       await screen.findByText(
-        /asperiores ea ipsam voluptatibus modi minima quia sint/i
-      )
+        /asperiores ea ipsam voluptatibus modi minima quia sint/i,
+      ),
     ).toBeInTheDocument();
     expect(
-      await screen.findByText(/ullam ut quidem id aut vel consequuntur/i)
+      await screen.findByText(/ullam ut quidem id aut vel consequuntur/i),
     ).toBeInTheDocument();
     expect(await screen.findByText(/non est facere/i)).toBeInTheDocument();
+  });
+
+  it("should rendering posts of user 1", async () => {
+    render(
+      <QueryClientProvider client={queryCLient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const user1 = screen.getByLabelText("Usuário 1");
+    fireEvent.click(user1);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const filterButton = screen.getByText("Filtrar");
+    fireEvent.click(filterButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/10/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(
+        /sunt aut facere repellat provident occaecati excepturi optio reprehenderit/i,
+      ),
+    ).toBeInTheDocument();
   });
 });
