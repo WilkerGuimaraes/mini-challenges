@@ -7,31 +7,31 @@ describe("App component test", () => {
   it("should render buttons", () => {
     render(<App />);
 
-    expect(screen.getByText("Show posts")).toBeInTheDocument();
-    expect(screen.getByText("Clean posts")).toBeInTheDocument();
+    expect(screen.getByText("Show comments")).toBeInTheDocument();
+    expect(screen.getByText("Clear comments")).toBeInTheDocument();
   });
 
-  it("should render posts", async () => {
+  it("should render comments", async () => {
     render(<App />);
 
-    const showPostsButton = screen.getByText("Show posts");
-    fireEvent.click(showPostsButton);
+    const showCommentsButton = screen.getByText("Show comments");
+    fireEvent.click(showCommentsButton);
     expect(
       await screen.findByText(/id labore ex et quam laborum/i),
     ).toBeInTheDocument();
   });
 
-  it("should clearing posts after rendering", async () => {
+  it("should clearing comments after rendering", async () => {
     render(<App />);
 
-    const showPostsButton = screen.getByText("Show posts");
-    fireEvent.click(showPostsButton);
+    const showCommentsButton = screen.getByText("Show comments");
+    fireEvent.click(showCommentsButton);
     expect(
       await screen.findByText(/id labore ex et quam laborum/i),
     ).toBeInTheDocument();
 
-    const clearPostsButton = screen.getByText("Clean posts");
-    fireEvent.click(clearPostsButton);
+    const clearCommentsButton = screen.getByText("Clear comments");
+    fireEvent.click(clearCommentsButton);
     expect(
       screen.queryByText(/id labore ex et quam laborum/i),
     ).not.toBeInTheDocument();
