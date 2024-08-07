@@ -79,4 +79,33 @@ describe("Task Component test", () => {
       ),
     ).toBeInTheDocument();
   });
+
+  it("should clean posts filter", async () => {
+    render(
+      <QueryClientProvider client={queryCLient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/100/i)).toBeInTheDocument();
+
+    const user3 = screen.getByLabelText("Usuário 3");
+    fireEvent.click(user3);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const filterButton = screen.getByText("Filtrar");
+    fireEvent.click(filterButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/10/i)).toBeInTheDocument();
+
+    const clearFilterButton = screen.getByText("Limpar");
+    fireEvent.click(clearFilterButton);
+
+    expect(screen.getByText(/100/i)).toBeInTheDocument();
+  });
 });
