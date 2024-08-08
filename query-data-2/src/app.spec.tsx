@@ -18,4 +18,17 @@ describe("App component test", () => {
     expect(screen.getByText(/Filtrar/i)).toBeInTheDocument();
     expect(screen.getByText(/Limpar/i)).toBeInTheDocument();
   });
+
+  it("should render all comments", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/Total de comentários: 500/i));
+    expect(await screen.findByText(/id labore ex et quam laborum/i));
+  });
 });
