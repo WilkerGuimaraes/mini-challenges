@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { App } from "./app";
@@ -30,5 +30,30 @@ describe("App component test", () => {
 
     expect(await screen.findByText(/Total de comentários: 500/i));
     expect(await screen.findByText(/id labore ex et quam laborum/i));
+  });
+
+  it("should render filtered comments", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const inputElement = screen.getByLabelText(/inputELement/i);
+    fireEvent.change(inputElement, { target: { value: 25 } });
+
+    const filterButton = screen.getByText(/Filtrar/i);
+    fireEvent.click(filterButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/Annabelle@cole.com/i));
+    expect(await screen.findByText(/Kacey@jamal.info/i));
+    expect(await screen.findByText(/Mina@mallie.name/i));
+    expect(await screen.findByText(/Hudson.Blick@ruben.biz/i));
+    expect(await screen.findByText(/Domenic.Durgan@joaquin.name/i));
+    expect(await screen.findByText(/Total de comentários: 5/i));
   });
 });
