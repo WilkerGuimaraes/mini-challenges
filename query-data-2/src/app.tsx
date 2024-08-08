@@ -60,6 +60,7 @@ export function App() {
             value={postId}
             onChange={handleChangePostId}
             className="h-10 rounded bg-zinc-100 px-3 text-black outline-none"
+            aria-label="inputElement"
           />
           <button
             type="submit"
