@@ -50,54 +50,67 @@ export function App() {
   }
 
   return (
-    <main className="max-w-5xl w-full my-6 mx-auto space-y-6">
-      <form onSubmit={filterComments} className="space-x-4">
-        <input
-          type="number"
-          name="postId"
-          id="postId"
-          value={postId}
-          onChange={handleChangePostId}
-          className="h-10 rounded px-3 bg-zinc-100 text-black outline-none"
-        />
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="h-10 px-6 bg-emerald-600 font-bold rounded outline-none hover:bg-emerald-500"
-        >
-          Filtrar
-        </button>
-        <button
-          type="button"
-          disabled={isLoading}
-          onClick={handleCleanFilter}
-          className="h-10 px-6 bg-slate-500 font-bold rounded outline-none hover:bg-slate-600"
-        >
-          Limpar
-        </button>
-      </form>
+    <main className="mx-auto w-full max-w-5xl space-y-6 py-12">
+      <div className="flex justify-between">
+        <form onSubmit={filterComments} className="space-x-4">
+          <input
+            type="number"
+            name="postId"
+            id="postId"
+            value={postId}
+            onChange={handleChangePostId}
+            className="h-10 rounded bg-zinc-100 px-3 text-black outline-none"
+          />
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="h-10 rounded bg-emerald-600 px-6 font-bold outline-none hover:bg-emerald-500"
+          >
+            Filtrar
+          </button>
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={handleCleanFilter}
+            className="h-10 rounded bg-slate-500 px-6 font-bold outline-none hover:bg-slate-600"
+          >
+            Limpar
+          </button>
+        </form>
+
+        <div className="flex flex-1 items-end justify-center">
+          <span className="text-2xl font-semibold">
+            {commentsResponse?.length !== undefined
+              ? `Total de comentários: ${commentsResponse?.length}`
+              : null}
+          </span>
+        </div>
+      </div>
 
       {isLoading && (
-        <span className="inline-flex font-bold text-2xl">
-          <Loader2 className="size-8 animate-spin mr-2" />
+        <span className="inline-flex text-2xl font-bold">
+          <Loader2 className="mr-2 size-8 animate-spin" />
           Carregando...
         </span>
       )}
 
-      <ul className="space-y-6">
+      <div className="grid grid-cols-3 gap-4">
         {commentsResponse?.map((comment) => (
-          <li key={comment.id}>
-            <h1 className="font-bold text-xl">
-              Nome: <span className="font-normal text-sm">{comment.name}</span>
-            </h1>
-            <h1 className="font-bold text-xl">
-              E-mail:{" "}
-              <span className="font-normal text-sm">{comment.email}</span>
-            </h1>
-            <p>{comment.body}</p>
-          </li>
+          <ul key={comment.id} className="flex">
+            <li className="rounded bg-zinc-800 p-4">
+              <h1 className="text-xl font-bold">
+                Nome:{" "}
+                <span className="text-sm font-normal">{comment.name}</span>
+              </h1>
+              <h1 className="text-xl font-bold">
+                E-mail:{" "}
+                <span className="text-sm font-normal">{comment.email}</span>
+              </h1>
+              <p>{comment.body}</p>
+            </li>
+          </ul>
         ))}
-      </ul>
+      </div>
     </main>
   );
 }
