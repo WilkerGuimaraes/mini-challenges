@@ -15,9 +15,9 @@ const userFormSchema = z.object({
         .map((word) =>
           word[0]
             .toLocaleUpperCase()
-            .concat(word.substring(1).toLocaleLowerCase())
+            .concat(word.substring(1).toLocaleLowerCase()),
         )
-        .join(" ")
+        .join(" "),
     ),
   email: z
     .string()
@@ -57,7 +57,7 @@ export function CreateUserForm() {
   }
 
   return (
-    <div className="flex flex-col gap-6 items-center my-6">
+    <div className="my-6 flex flex-col items-center gap-6">
       <form
         onSubmit={handleSubmit(createUser)}
         className="flex items-start gap-4"
@@ -70,7 +70,7 @@ export function CreateUserForm() {
             type="text"
             {...register("name")}
             id="name"
-            className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
+            className="h-10 rounded bg-zinc-100 px-3 text-black outline-none"
           />
 
           {formState.errors.name && (
@@ -88,7 +88,7 @@ export function CreateUserForm() {
             type="email"
             {...register("email")}
             id="email"
-            className="h-10 px-3 bg-zinc-100 text-black rounded outline-none"
+            className="h-10 rounded bg-zinc-100 px-3 text-black outline-none"
           />
 
           {formState.errors.email && (
@@ -101,7 +101,7 @@ export function CreateUserForm() {
         <div className="flex h-[70px] items-end">
           <button
             type="submit"
-            className="h-10 w-20 bg-emerald-600 rounded font-bold"
+            className="h-10 w-20 rounded bg-emerald-600 font-bold"
           >
             Enviar
           </button>
@@ -109,7 +109,7 @@ export function CreateUserForm() {
       </form>
 
       {formState.isSubmitting && (
-        <span className="inline-flex gap-2 font-bold text-2xl">
+        <span className="inline-flex gap-2 text-2xl font-bold">
           <Loader2 className="size-8 animate-spin" />
           Carregando...
         </span>

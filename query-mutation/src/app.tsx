@@ -13,7 +13,7 @@ export function App() {
     queryKey: ["get-users"],
     queryFn: async () => {
       const data = await fetch("http://localhost:3333/users").then((response) =>
-        response.json()
+        response.json(),
       );
 
       // delay 1.5s
@@ -24,11 +24,11 @@ export function App() {
   });
 
   return (
-    <main className="flex flex-col items-center gap-6 max-w-6xl h-screen mx-auto">
+    <main className="mx-auto flex h-screen max-w-6xl flex-col items-center gap-6">
       <CreateUserForm />
 
       {isLoading && (
-        <span className="inline-flex gap-2 font-bold text-2xl">
+        <span className="inline-flex gap-2 text-2xl font-bold">
           <Loader2 className="size-8 animate-spin" />
           Carregando...
         </span>
@@ -37,7 +37,7 @@ export function App() {
       <ul className="space-y-6">
         {usersResponse?.map((user) => (
           <li key={user.id}>
-            <h1 className="font-bold text-2xl">{user.name}</h1>
+            <h1 className="text-2xl font-bold">{user.name}</h1>
             <p className="text-zinc-500">{user.email}</p>
           </li>
         ))}
