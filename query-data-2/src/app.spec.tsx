@@ -56,4 +56,33 @@ describe("App component test", () => {
     expect(await screen.findByText(/Domenic.Durgan@joaquin.name/i));
     expect(await screen.findByText(/Total de comentários: 5/i));
   });
+
+  it("should clearing comments filter", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>,
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    const inputElement = screen.getByLabelText(/inputELement/i);
+    fireEvent.change(inputElement, { target: { value: 72 } });
+
+    const filterButton = screen.getByText(/Filtrar/i);
+    fireEvent.click(filterButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
+    expect(await screen.findByText(/qui vel id qui est/i));
+    expect(await screen.findByText(/Total de comentários: 5/i));
+
+    const clearButton = screen.getByText(/Limpar/i);
+    fireEvent.click(clearButton);
+
+    expect(
+      screen.getByText(/id labore ex et quam laborum/i),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/Total de comentários: 500/i)).toBeInTheDocument();
+  });
 });
