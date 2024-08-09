@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { App } from "./app";
@@ -23,5 +23,21 @@ describe("App component test", () => {
 
     expect(screen.getByText(/Filtrar/i)).toBeInTheDocument();
     expect(screen.getByText(/Limpar/i)).toBeInTheDocument();
+  });
+
+  it("should render filtered data", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    );
+
+    const inputIsActive = screen.getByLabelText("Ativado");
+    const filterButton = screen.getByText(/Filtrar/i);
+
+    fireEvent.click(inputIsActive);
+    fireEvent.click(filterButton);
+
+    expect(await screen.findAllByText("true")).toHaveLength(18);
   });
 });
