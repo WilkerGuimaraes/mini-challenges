@@ -40,4 +40,25 @@ describe("App component test", () => {
 
     expect(await screen.findAllByText("true")).toHaveLength(18);
   });
+
+  it("should clear filtered data", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    );
+
+    const inputIsActive = screen.getByLabelText("Ativado");
+    const filterButton = screen.getByText(/Filtrar/i);
+
+    fireEvent.click(inputIsActive);
+    fireEvent.click(filterButton);
+
+    expect(await screen.findAllByText("true")).toHaveLength(18);
+
+    const clearButton = screen.getByText(/Limpar/i);
+    fireEvent.click(clearButton);
+
+    expect(screen.queryByText(/true/i)).not.toBeInTheDocument();
+  });
 });
