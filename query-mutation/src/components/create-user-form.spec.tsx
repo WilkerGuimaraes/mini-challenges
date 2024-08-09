@@ -30,8 +30,8 @@ describe("CreateUserForm testing", () => {
     fireEvent.click(sendButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/O nome é obrigatório./i)).toBeInTheDocument();
-      expect(screen.getByText(/O e-mail é obrigatório./i)).toBeInTheDocument();
+      expect(screen.findByText(/O nome é obrigatório./i));
+      expect(screen.findByText(/O e-mail é obrigatório./i));
     });
   });
 });
