@@ -1,5 +1,7 @@
 import { http, HttpResponse } from "msw";
 
+const allUsers = new Map();
+
 export const handlers = [
   http.get("/https://localhost:3333", () => {
     return HttpResponse.json(
@@ -16,5 +18,11 @@ export const handlers = [
         status: 200,
       },
     );
+  }),
+  http.post("/http://localhost:3333/users", async ({ request }) => {
+    const newUser = await request.json();
+
+    allUsers.set(newUser?.toString(), newUser);
+    return HttpResponse.json(newUser, { status: 201 });
   }),
 ];
