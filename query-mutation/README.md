@@ -10,3 +10,4 @@ Crie um formulário que irá servir para cadastrar um usuário com nome e e-mail
 - O formulário deve possuir validação em todos os campos de cadastro.
 - Os dados cadastrados devem ser exibidos em tela.
 - Aplique os conceitos de mutações através do `react-query` para validar e atualizar os dados da API para exibi-los em tela sem atualizar à página.
+- Aplique testes unitários para garantir o funcionamento do código.
