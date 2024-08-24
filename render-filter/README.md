@@ -22,3 +22,4 @@
 ## Adicional
 
 - Aplique os conceitos de `custom hooks` para tornar o código mais legível e organizado.
+- Aplique testes para garantir o funcionamento do código.
