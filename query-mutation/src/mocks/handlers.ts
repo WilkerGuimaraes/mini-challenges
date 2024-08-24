@@ -3,7 +3,7 @@ import { http, HttpResponse } from "msw";
 const allUsers = new Map();
 
 export const handlers = [
-  http.get("/https://localhost:3333", () => {
+  http.get("/https://localhost:3333/users", () => {
     return HttpResponse.json(
       {
         users: [
